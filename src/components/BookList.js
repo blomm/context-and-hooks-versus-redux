@@ -4,11 +4,13 @@ import { BookContext } from '../contexts/BookContext'
 
 const BookList = () => {
   const { isLightTheme, light, dark } = React.useContext(ThemeContext)
-  const { books, removeBook } = React.useContext(BookContext)
+  const { books, dispatch } = React.useContext(BookContext)
   const theme = isLightTheme ? light : dark
 
   const handleBookDelete = (id) => {
-    removeBook(id)
+    dispatch({ type: 'REMOVE_BOOK', id })
+    // below uses context with functions
+    // removeBook(id)
   }
 
   return books.length ? (

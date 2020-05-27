@@ -2,13 +2,15 @@ import React from 'react'
 import { BookContext } from '../contexts/BookContext'
 
 export const BookForm = () => {
-  const { addBook } = React.useContext(BookContext)
+  const { dispatch } = React.useContext(BookContext)
   const [title, setTitle] = React.useState('')
   const [author, setAuthor] = React.useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    addBook(author, title)
+    dispatch({ type: 'ADD_BOOK', book: { title, author } })
+    // below using context with functions
+    // addBook(author, title)
     setTitle('')
     setAuthor('')
   }
