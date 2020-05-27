@@ -10,7 +10,15 @@ export const BookContextProvider = (props) => {
   //   { id: '3', title: 'Play Ball', author: 'Joe Dimagio' },
   // ])
 
-  const [books, dispatch] = React.useReducer(bookReducer, [])
+  const [books, dispatch] = React.useReducer(bookReducer, [], () => {
+    const localBooks = localStorage.getItem('books')
+    return localBooks ? JSON.parse(localBooks) : []
+  })
+
+  // call this effect whenever the books array changes
+  React.useEffect(() => {
+    localStorage.setItem('books', JSON.stringify(books))
+  }, [books])
 
   // const addBook = (author, title) => {
   //   setBooks([...books, { id: uuidv4(), author, title }])
